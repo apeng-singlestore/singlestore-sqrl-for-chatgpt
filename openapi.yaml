@@ -1,93 +1,55 @@
 openapi: 3.0.1
 info:
-  title: TODO Plugin
-  description: A plugin that allows the user to create and manage a TODO list using ChatGPT. If you do not know the user's username, ask them first before making queries to the plugin. Otherwise, use the username "global".
+  title: SingleStore SQrL Plugin
+  description: A plugin that allows the user to run SQL queries on a MySQL database (SingleStore) using ChatGPT.
   version: 'v1'
 servers:
   - url: http://localhost:5003
 paths:
-  /todos/{username}:
-    get:
-      operationId: getTodos
-      summary: Get the list of todos
-      parameters:
-      - in: path
-        name: username
-        schema:
-            type: string
-        required: true
-        description: The name of the user.
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTodosResponse'
+  /sql_query:
     post:
-      operationId: addTodo
-      summary: Add a todo to the list
-      parameters:
-      - in: path
-        name: username
-        schema:
-            type: string
-        required: true
-        description: The name of the user.
+      operationId: executeSqlQuery
+      summary: Execute a SQL query
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/addTodoRequest'
+              type: object
+              properties:
+                sql_query:
+                  type: string
+                  description: The SQL query to execute.
+                  required: true
       responses:
         "200":
           description: OK
-    delete:
-      operationId: deleteTodo
-      summary: Delete a todo from the list
-      parameters:
-      - in: path
-        name: username
-        schema:
-            type: string
-        required: true
-        description: The name of the user.
-      requestBody:
-        required: true
+  /table_shape:
+    get:
+      operationId: getTableShape
+      summary: Get the table names and column names
+      responses:
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/deleteTodoRequest'
-      responses:
-        "200":
-          description: OK
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/getTableShapeResponse'
+
 
 components:
   schemas:
-    getTodosResponse:
+    tableShapeResponse:
       type: object
       properties:
         todos:
           type: array
           items:
             type: string
-          description: The list of todos.
-    addTodoRequest:
+          description: The list of column names, grouped by database name. 
+    sql_query:
       type: object
-      required:
-      - todo
       properties:
-        todo:
+        sql_query:
           type: string
-          description: The todo to add to the list.
-          required: true
-    deleteTodoRequest:
-      type: object
-      required:
-      - todo_idx
-      properties:
-        todo_idx:
-          type: integer
-          description: The index of the todo to delete.
-          required: true
+          description: The SQL query to execute.
+
+    

@@ -3,11 +3,48 @@ import json
 import quart
 import quart_cors
 from quart import request
+import requests
+
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
 
-# Keep track of todo's. Does not persist if Python session is restarted.
-_TODOS = {}
+
+# Keep track of username and password
+username = 'admin'
+password = 'Password!'
+
+# Add the new API endpoint
+@app.post("/sql_query")
+async def execute_sql_query():
+    request_data = await quart.request.get_json(force=True)
+    sql_query = request_data["sql_query"]
+    result = post_sql_query(sql_query, "s2_dataset_trades_fb76a929", username, password)
+    return quart.Response(response=json.dumps(result), status=200)
+
+def post_sql_query(sql_query, db_name, username, password):
+    url = "https://svc-e846ab48-fb29-4054-97c1-751a295fb357-dml.aws-oregon-4.svc.singlestore.com/api/v2/query/rows"
+    
+    # Add the authorization header
+    headers = {
+        "Content-Type": "application/json"
+    }
+    
+    data = {"sql": sql_query, "database": db_name}
+
+    
+    response = requests.post(url, headers=headers, data=json.dumps(data), auth=(username, password))
+    print(response)
+    return response.json()
+
+    
+@app.get("/table_shape")
+async def get_table_shape():
+    query = "select table_name, column_name from information_schema.columns where table_schema != \"information_schema\""
+    result = post_sql_query(query, "information_schema", username, password)
+    return quart.Response(response=json.dumps(result), status=200)
+
+
+
 
 @app.post("/todos/<string:username>")
 async def add_todo(username):
