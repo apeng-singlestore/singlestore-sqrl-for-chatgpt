@@ -40,7 +40,7 @@ def post_sql_query(sql_query, db_name, username, password):
     
 @app.get("/table_shape")
 async def get_table_shape():
-    query = "select table_schema, table_name, column_name from information_schema.columns where table_schema != \"information_schema\""
+    query = "SELECT table_schema, table_name, GROUP_CONCAT(column_name SEPARATOR ', ') AS columns FROM information_schema.columns WHERE table_schema != 'information_schema' GROUP BY table_schema, table_name ORDER BY table_schema;"
     result = post_sql_query(query, "information_schema", username, password)
     return quart.Response(response=json.dumps(result), status=200)
 
