@@ -26,5 +26,7 @@ Once the local server is running:
 
 The plugin should now be installed and enabled!
 
+If you'd like to use your own database, change the username, password, and endpoint URL in main.py.
+
 Right now the plugin is capable of understanding and running queries to answer questions. Try asking for the table shape, or just asking questions!
 

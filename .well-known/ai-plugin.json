@@ -3,7 +3,7 @@
     "name_for_human": "SingleStore SQrL Plugin",
     "name_for_model": "sqrl",
     "description_for_human": "Plugin to run SQL queries on a SingleStore database",
-    "description_for_model": "Plugin to run SQL queries on a SingleStore database",
+    "description_for_model": "SQL database query access. When answering a database question, first break the question down into steps with a clear goal in mind, and run a SQl query for each intermediate step. Write up a clear and analytical description of the process used to answer the question. Run getTableShape before running any other queries to understand the databases, tables, and columns available to you.",
     "auth": {
       "type": "none"
     },

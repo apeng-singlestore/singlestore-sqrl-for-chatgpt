@@ -18,7 +18,8 @@ endpoint_url = 'svc-e846ab48-fb29-4054-97c1-751a295fb357-dml.aws-oregon-4.svc.si
 async def execute_sql_query():
     request_data = await quart.request.get_json(force=True)
     sql_query = request_data["sql_query"]
-    result = post_sql_query(sql_query, "s2_dataset_trades_fb76a929", username, password)
+    db_name = request_data["db_name"]
+    result = post_sql_query(sql_query, db_name, username, password)
     return quart.Response(response=json.dumps(result), status=200)
 
 def post_sql_query(sql_query, db_name, username, password):
@@ -39,7 +40,7 @@ def post_sql_query(sql_query, db_name, username, password):
     
 @app.get("/table_shape")
 async def get_table_shape():
-    query = "select table_name, column_name from information_schema.columns where table_schema != \"information_schema\""
+    query = "select table_schema, table_name, column_name from information_schema.columns where table_schema != \"information_schema\""
     result = post_sql_query(query, "information_schema", username, password)
     return quart.Response(response=json.dumps(result), status=200)
 
