@@ -1,5 +1,4 @@
 import json
-
 import quart
 import quart_cors
 from quart import request
@@ -12,6 +11,7 @@ app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.c
 # Keep track of username and password
 username = 'admin'
 password = 'Password!'
+endpoint_url = 'svc-e846ab48-fb29-4054-97c1-751a295fb357-dml.aws-oregon-4.svc.singlestore.com'
 
 # Add the new API endpoint
 @app.post("/sql_query")
@@ -22,7 +22,7 @@ async def execute_sql_query():
     return quart.Response(response=json.dumps(result), status=200)
 
 def post_sql_query(sql_query, db_name, username, password):
-    url = "https://svc-e846ab48-fb29-4054-97c1-751a295fb357-dml.aws-oregon-4.svc.singlestore.com/api/v2/query/rows"
+    url = "https://" + endpoint_url + "/api/v2/query/rows"
     
     # Add the authorization header
     headers = {
@@ -69,7 +69,7 @@ async def delete_todo(username):
 
 @app.get("/logo.png")
 async def plugin_logo():
-    filename = 'logo.png'
+    filename = 'logo_main.png'
     return await quart.send_file(filename, mimetype='image/png')
 
 @app.get("/.well-known/ai-plugin.json")

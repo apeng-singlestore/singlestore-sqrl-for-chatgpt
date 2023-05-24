@@ -21,13 +21,17 @@ paths:
                   type: string
                   description: The SQL query to execute.
                   required: true
+                db_name:
+                  type: string
+                  description: The name of the database to execute the query on.
+                  required: true
       responses:
         "200":
           description: OK
   /table_shape:
     get:
       operationId: getTableShape
-      summary: Get the table names and column names
+      summary: Get the table names and column names. Necessary to determine the correct table/column names, so run this whenever you are unsure.
       responses:
         content:
               application/json:

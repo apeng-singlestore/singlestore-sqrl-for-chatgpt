@@ -1,6 +1,6 @@
-# ChatGPT plugins quickstart
+# SingleStore ChatGPT Plugin
 
-Get a todo list ChatGPT plugin up and running in under 5 minutes using Python. If you do not already have plugin developer access, please [join the waitlist](https://openai.com/waitlist/plugins).
+Get a SingleStore ChatGPT plugin up and running in under 5 minutes using Python. If you do not already have plugin developer access, please [join the waitlist](https://openai.com/waitlist/plugins).
 
 ## Setup
 
@@ -24,8 +24,7 @@ Once the local server is running:
 4. Select "Develop your own plugin"
 5. Enter in `localhost:5003` since this is the URL the server is running on locally, then select "Find manifest file".
 
-The plugin should now be installed and enabled! You can start with a question like "What is on my todo list" and then try adding something to it as well! 
+The plugin should now be installed and enabled!
 
-## Getting help
+Right now the plugin is capable of understanding and running queries to answer questions. Try asking for the table shape, or just asking questions!
 
-If you run into issues or have questions building a plugin, please join our [Developer community forum](https://community.openai.com/c/chat-plugins/20).
