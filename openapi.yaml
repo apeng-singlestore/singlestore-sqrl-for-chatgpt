@@ -37,7 +37,29 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/getTableShapeResponse'
-
+  /credentials:
+    post:
+      operationId: saveCredentials
+      summary: Save database credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The database username.
+                  required: false
+                password:
+                  type: string
+                  description: The database password.
+                  required: false
+                endpoint_url:
+                  type: string
+                  description: The endpoint url of the database.
+                  required: false
 
 components:
   schemas:
