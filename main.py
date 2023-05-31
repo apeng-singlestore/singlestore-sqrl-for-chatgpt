@@ -10,7 +10,7 @@ app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.c
 
 # Keep track of username and password
 username = 'admin'
-password = 'lHoLoQNNJmc0b5CnLrjjqiH8xZKKipna'
+password = 'bIM2J78ZKZDeDetiwzLifEkfddtNA8nK'
 endpoint_url = 'svc-bdaf1a6b-098e-47a4-9a84-c6ff70b0d6b2-dml.aws-virginia-6.svc.singlestore.com'
 
 # Add the new API endpoint
